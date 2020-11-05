@@ -5,7 +5,20 @@ import os
 import sys
 import time
 
-import Color as color
+
+class Color:
+    OK_BLUE = '\033[94m'
+    OK_CYAN = '\033[96m'
+    OK_GREEN = '\033[92m'
+    WARNING = '\033[93m'
+    FAIL = '\033[91m'
+
+    HEADER = '\033[95m'
+    BOLD = '\033[1m'
+    UNDERLINE = '\033[4m'
+
+    ENDC = '\033[0m'
+
 
 '''
    根据text文件数据类型判断是否是二进制文件
@@ -51,17 +64,17 @@ def search(filepath, pattern):
 
 
 def file_process(file_path, list, pattern):
-    with codecs.open(file_path) as file:
+    with codecs.open(file_path, 'r', encoding='UTF-8') as file:
         i = 1
         is_first = True
         for line in file:
             if pattern in line:
                 if is_first:
                     # print(f"{color.Color.OK_BLUE}File: {file_path}{color.Color.ENDC}")
-                    list.append(f"{color.Color.OK_BLUE}File: {file_path}{color.Color.ENDC}")
+                    list.append(f"{Color.OK_BLUE}File: {file_path}{Color.ENDC}")
                     is_first = False
                 # print(f"{i}:{line.strip('%n')}")
-                new_str = line.replace(pattern, color.Color.OK_CYAN + pattern + color.Color.ENDC)
+                new_str = line.replace(pattern, Color.OK_CYAN + pattern + Color.ENDC)
                 list.append(str(i) + ": " + new_str.strip("\n"))
             i = i + 1
 
@@ -73,7 +86,7 @@ def main():
     start_time = time.time()
     print('Number of arguments:', len(sys.argv), 'arguments.')
     pattern = "UTF-8"
-    search(r'/Users/alan/Program/python', pattern)
+    search(r'./', pattern)
     print('cost time:', '%.2f' % (time.time() - start_time), 'ms')
 
 
