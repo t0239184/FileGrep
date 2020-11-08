@@ -157,11 +157,7 @@ else:
     do_search = False
     for arg in sys.argv:
         str_array = arg.split('=')
-        if len(str_array) < 2:
-            if 'help' == arg:
-                print_help()
-                break
-
+        if len(str_array) == 2:
             key = str_array[0]
             value = str_array[1]
             if 'path' == key:
@@ -189,7 +185,4 @@ else:
         print_found()
         print_cost(start_time)
     else:
-        print(f'{Color.YELLOW}pattern is required!!{Color.ENDC}')
-        print()
-        print('    python fgrep pattern=TODO')
-        print()
+        print_help()
